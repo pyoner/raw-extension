@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@types/chrome": "^0.0.116",
-    "webextension-polyfill-ts": "^0.12.0"
+    "webextension-polyfill-ts": "^0.12.0",
+    "worker-rpc": "^0.2.0"
   },
   "license": "MIT",
   "devDependencies": {

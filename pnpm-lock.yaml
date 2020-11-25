@@ -1,6 +1,7 @@
 dependencies:
   '@types/chrome': 0.0.116
   webextension-polyfill-ts: 0.12.0
+  worker-rpc: 0.2.0
 devDependencies:
   '@rollup/plugin-commonjs': 11.1.0_rollup@1.32.1
   '@rollup/plugin-node-resolve': 8.0.1_rollup@1.32.1
@@ -1195,6 +1196,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-RlbnLQgRHk5lwqTtpEkBTQ2ll/CG/iB+J4Hy2Wh97PjgZgXgWJWrFF+XXujh3UUVLvR4OOTgZzcWMMwnehlEUg==
+  /microevent.ts/0.2.1:
+    dev: false
+    resolution:
+      integrity: sha512-YaOQr4V70QzTy3sTRkBUa7+clmN4rMdKs9L5wCCxYjo8gknO/FXhcEX5Pot4IWtAdiZqhxN7vskoywQbAOAkDQ==
   /mimic-fn/2.1.0:
     dev: true
     engines:
@@ -1821,6 +1826,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
+  /worker-rpc/0.2.0:
+    dependencies:
+      microevent.ts: 0.2.1
+    dev: false
+    resolution:
+      integrity: sha512-S74HnfAdmMlUYmr6+Lx6TmxvffM2vRZSk4RfI/Bxco4xZGw+FREzLRZhFxf8QIzI2/5NKNMn5+Pj69Bp+rweIg==
   /wrappy/1.0.2:
     dev: true
     resolution:
@@ -1862,3 +1873,4 @@ specifiers:
   tslib: ^2.0.0
   typescript: ^3.7.4
   webextension-polyfill-ts: ^0.12.0
+  worker-rpc: ^0.2.0

@@ -1,7 +1,17 @@
-chrome.browserAction.onClicked.addListener(() => {
-  alert('you clicked?')
-})
+import { RpcProvider } from 'worker-rpc'
 
-chrome.runtime.onMessage.addListener(({ greeting }) => {
-  alert(`you said, "${greeting}"`)
+chrome.runtime.onConnectExternal.addListener((port) => {
+  const rpcProvider = new RpcProvider((message, transfer) => {
+    console.log('transfer', transfer)
+    port.postMessage(message)
+  })
+
+  port.onMessage.addListener((message) => {
+    rpcProvider.dispatch(message)
+  })
+
+  rpcProvider.registerRpcHandler(
+    'add',
+    ({ x, y }: { x: number; y: number }) => x + y,
+  )
 })
