@@ -4,6 +4,7 @@ importers:
       compression: 1.7.4
       polka: 1.0.0-next.11
       sirv: 1.0.7
+      worker-rpc: 0.2.0
     devDependencies:
       '@babel/core': 7.12.9
       '@babel/plugin-syntax-dynamic-import': 7.8.3_@babel+core@7.12.9
@@ -17,6 +18,7 @@ importers:
       '@rollup/plugin-typescript': 6.1.0_7acd921d0b3b835553b7f513891ce3ca
       '@rollup/plugin-url': 5.0.1_rollup@2.33.3
       '@tsconfig/svelte': 1.0.10
+      '@types/chrome': 0.0.126
       '@types/compression': 1.7.0
       '@types/node': 14.14.10
       '@types/polka': 0.5.1
@@ -42,6 +44,7 @@ importers:
       '@rollup/plugin-typescript': ^6.0.0
       '@rollup/plugin-url': ^5.0.0
       '@tsconfig/svelte': ^1.0.10
+      '@types/chrome': ^0.0.126
       '@types/compression': ^1.7.0
       '@types/node': ^14.11.1
       '@types/polka': ^0.5.1
@@ -57,6 +60,7 @@ importers:
       svelte-preprocess: ^4.3.0
       tslib: ^2.0.1
       typescript: ^4.0.3
+      worker-rpc: ^0.2.0
   packages/extension:
     dependencies:
       '@types/chrome': 0.0.116
@@ -1236,6 +1240,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EM5AoIR1w2PtkyOMtIbQ0FAGmH4nnv28HOAVPtbNQmioc9eUMBYOe6p2BZrv9shXVV62WtyNiPi2FWS44A7BTg==
+  /@types/chrome/0.0.126:
+    dependencies:
+      '@types/filesystem': 0.0.29
+      '@types/har-format': 1.2.5
+    dev: true
+    resolution:
+      integrity: sha512-191z7uoyfbGU+z7/m45j9XbWugWqVHVPMM4hJV5cZ+3YzGCT9wFjMUHO3Wr3Xvo8aVodvRNu28u7lvEaAnfbzg==
   /@types/color-name/1.1.1:
     dev: true
     resolution:
@@ -1284,17 +1295,19 @@ packages:
   /@types/filesystem/0.0.29:
     dependencies:
       '@types/filewriter': 0.0.28
-    dev: false
     resolution:
       integrity: sha512-85/1KfRedmfPGsbK8YzeaQUyV1FQAvMPMTuWFQ5EkLd2w7szhNO96bk3Rh/SKmOfd9co2rCLf0Voy4o7ECBOvw==
   /@types/filewriter/0.0.28:
-    dev: false
     resolution:
       integrity: sha1-wFTor02d11205jq8dviFFocU1LM=
   /@types/har-format/1.2.4:
     dev: false
     resolution:
       integrity: sha512-iUxzm1meBm3stxUMzRqgOVHjj4Kgpgu5w9fm4X7kPRfSgVRzythsucEN7/jtOo8SQzm+HfcxWWzJS0mJDH/3DQ==
+  /@types/har-format/1.2.5:
+    dev: true
+    resolution:
+      integrity: sha512-IG8AE1m2pWtPqQ7wXhFhy6Q59bwwnLwO36v5Rit2FrbXCIp8Sk8E2PfUCreyrdo17STwFSKDAkitVuVYbpEHvQ==
   /@types/json-schema/7.0.5:
     dev: true
     resolution:
