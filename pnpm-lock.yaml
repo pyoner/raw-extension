@@ -101,6 +101,16 @@ importers:
       typescript: ^3.7.4
       webextension-polyfill-ts: ^0.12.0
       worker-rpc: ^0.2.0
+  packages/lib:
+    dependencies:
+      chrome-promise: 3.0.5
+      worker-rpc: 0.2.0
+    devDependencies:
+      '@types/chrome': 0.0.126
+    specifiers:
+      '@types/chrome': ^0.0.126
+      chrome-promise: ^3.0.5
+      worker-rpc: ^0.2.0
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.1:
