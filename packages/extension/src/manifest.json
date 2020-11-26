@@ -7,6 +7,6 @@
   "externally_connectable": {
     "matches": ["*://localhost/*"]
   },
-  "permissions": ["bookmarks"],
+  "optional_permissions": ["bookmarks"],
   "manifest_version": 2
 }
