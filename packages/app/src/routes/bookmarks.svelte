@@ -19,8 +19,20 @@
     bookmarksTree = await rpcProvider.rpc('bookmarks.getTree')
     console.log('bookmarks.getTree', bookmarksTree)
   }
+
+  let query: string = ''
+  const search = async () => {
+    bookmarksTree = await rpcProvider.rpc('bookmarks.search', [
+      query,
+    ])
+  }
 </script>
 
+<input
+  type="text"
+  placeholder="enter query"
+  bind:value={query} />
+<button on:click={() => search()}>search</button>
 <button on:click={() => getTree()}>bookmarks.getTree</button>
 
 <Bookmarks tree={bookmarksTree} />
