@@ -1,5 +1,6 @@
 <script lang="ts">
   import { RpcProvider } from 'worker-rpc'
+  import Bookmarks from '../components/Bookmarks.svelte'
 
   const extensionId = 'naljgifnpkbcfkeapikhahheciachbcg'
   const port = chrome.runtime.connect(extensionId)
@@ -21,14 +22,5 @@
 </script>
 
 <button on:click={() => getTree()}>bookmarks.getTree</button>
-<div>
-  {#if bookmarksTree}
-    {#each bookmarksTree as node (node.id)}
-      <div>
-        <div>id: {node.id}</div>
-        <div>title: {node.title}</div>
-        <div>children: {node.children}</div>
-      </div>
-    {/each}
-  {/if}
-</div>
+
+<Bookmarks tree={bookmarksTree} />
