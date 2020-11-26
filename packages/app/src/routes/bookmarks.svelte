@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte'
   import { RpcProvider } from 'worker-rpc'
+
   import Bookmarks from '../components/Bookmarks.svelte'
 
   const extensionId = 'naljgifnpkbcfkeapikhahheciachbcg'
@@ -12,6 +14,10 @@
 
   port.onMessage.addListener((message) => {
     rpcProvider.dispatch(message)
+  })
+
+  onDestroy(() => {
+    port.disconnect()
   })
 
   let bookmarksTree: chrome.bookmarks.BookmarkTreeNode[]
