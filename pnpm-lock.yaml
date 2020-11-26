@@ -64,6 +64,7 @@ importers:
   packages/extension:
     dependencies:
       '@types/chrome': 0.0.116
+      chrome-promise: 3.0.5
       webextension-polyfill-ts: 0.12.0
       worker-rpc: 0.2.0
     devDependencies:
@@ -88,6 +89,7 @@ importers:
       '@types/chrome': ^0.0.116
       '@typescript-eslint/eslint-plugin': ^3.1.0
       '@typescript-eslint/parser': ^3.1.0
+      chrome-promise: ^3.0.5
       eslint: 7.1.0
       eslint-plugin-jest: ^23.13.2
       eslint-plugin-react: ^7.20.0
@@ -1732,6 +1734,10 @@ packages:
       fsevents: 2.1.3
     resolution:
       integrity: sha512-DtM3g7juCXQxFVSNPNByEC2+NImtBuxQQvWlHunpJIS5Ocr0lG306cC7FCi7cEA0fzmybPUIl4txBIobk1gGOQ==
+  /chrome-promise/3.0.5:
+    dev: false
+    resolution:
+      integrity: sha512-ekIevrJOO5S6ezSzl5TdaLhlQkovY5nVaNSgA2XyhuNtlGniUvTbf7rzH95alh1OajArwoP2xVGYUJbpVLmZYA==
   /clean-css/4.2.3:
     dependencies:
       source-map: 0.6.1

@@ -1,5 +1,5 @@
 {
-  "name": "typescript-chrome-extension-starter",
+  "name": "raw-extenson",
   "version": "0.1.0",
   "description": "Get started writing a Chrome extension in TypeScript",
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/chrome": "^0.0.116",
+    "chrome-promise": "^3.0.5",
     "webextension-polyfill-ts": "^0.12.0",
     "worker-rpc": "^0.2.0"
   },

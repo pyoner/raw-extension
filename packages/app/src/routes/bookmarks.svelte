@@ -13,13 +13,22 @@
     rpcProvider.dispatch(message)
   })
 
-  let result: number
-
-  const add = async (x: number, y: number) => {
-    result = await rpcProvider.rpc('add', { x, y })
+  let bookmarksTree: chrome.bookmarks.BookmarkTreeNode[]
+  const getTree = async () => {
+    bookmarksTree = await rpcProvider.rpc('bookmarks.getTree')
+    console.log('bookmarks.getTree', bookmarksTree)
   }
 </script>
 
-<button on:click={() => add(1, 2)}>add 1 + 2</button>
-=
-{typeof result === undefined ? '?' : result}
+<button on:click={() => getTree()}>bookmarks.getTree</button>
+<div>
+  {#if bookmarksTree}
+    {#each bookmarksTree as node (node.id)}
+      <div>
+        <div>id: {node.id}</div>
+        <div>title: {node.title}</div>
+        <div>children: {node.children}</div>
+      </div>
+    {/each}
+  {/if}
+</div>
