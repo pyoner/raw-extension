@@ -4,8 +4,8 @@ import bookmarks from './bookmarks'
 import { init } from './helpers'
 
 chrome.runtime.onConnectExternal.addListener((port) => {
+  console.log('external connection', port)
   const rpcProvider = new RpcProvider((message, transfer) => {
-    console.log('transfer', transfer)
     port.postMessage(message)
   })
 
