@@ -16,6 +16,8 @@ export interface ResponseEvent {
   payload?: any
 }
 
+export type SendRequest = (message: BaseEvent) => void
+
 export type OverloadedFunction =
   | {
       (...args: any): any
