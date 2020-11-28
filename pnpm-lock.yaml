@@ -46,7 +46,7 @@ importers:
       '@tsconfig/svelte': ^1.0.10
       '@types/chrome': ^0.0.126
       '@types/compression': ^1.7.0
-      '@types/node': ^14.11.1
+      '@types/node': ^14.14.10
       '@types/polka': ^0.5.1
       compression: ^1.7.1
       polka: next
@@ -71,6 +71,7 @@ importers:
       '@rollup/plugin-commonjs': 11.1.0_rollup@1.32.1
       '@rollup/plugin-node-resolve': 8.0.1_rollup@1.32.1
       '@rollup/plugin-typescript': 3.1.1_39d13c6813940725dcb65a15926fd609
+      '@types/node': 14.14.10
       '@typescript-eslint/eslint-plugin': 3.3.0_78ca9b9ad608dc1d5b6f7910329a05e3
       '@typescript-eslint/parser': 3.3.0_eslint@7.1.0+typescript@3.9.5
       eslint: 7.1.0
@@ -87,6 +88,7 @@ importers:
       '@rollup/plugin-node-resolve': ^8.0.1
       '@rollup/plugin-typescript': ^3.1.1
       '@types/chrome': ^0.0.116
+      '@types/node': ^14.14.10
       '@typescript-eslint/eslint-plugin': ^3.1.0
       '@typescript-eslint/parser': ^3.1.0
       chrome-promise: ^3.0.5
@@ -104,12 +106,16 @@ importers:
   packages/lib:
     dependencies:
       chrome-promise: 3.0.5
+      rxjs: 6.6.3
       worker-rpc: 0.2.0
     devDependencies:
       '@types/chrome': 0.0.126
+      '@types/node': 14.14.10
     specifiers:
       '@types/chrome': ^0.0.126
+      '@types/node': ^14.14.10
       chrome-promise: ^3.0.5
+      rxjs: ^6.6.3
       worker-rpc: ^0.2.0
 lockfileVersion: 5.2
 packages:
@@ -3257,6 +3263,14 @@ packages:
       npm: '>=2.0.0'
     resolution:
       integrity: sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==
+  /rxjs/6.6.3:
+    dependencies:
+      tslib: 1.14.1
+    dev: false
+    engines:
+      npm: '>=2.0.0'
+    resolution:
+      integrity: sha512-trsQc+xYYXZ3urjOiJOuCOa5N3jAZ3eiSpQB5hIT8zGlL2QfnHLJ2r7GMkBGuIausdJN1OneaI6gQlsqNHHmZQ==
   /safe-buffer/5.1.2:
     resolution:
       integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
@@ -3645,6 +3659,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+  /tslib/1.14.1:
+    dev: false
+    resolution:
+      integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
   /tslib/2.0.0:
     dev: true
     resolution:

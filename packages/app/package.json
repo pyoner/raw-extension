@@ -30,7 +30,7 @@
     "@tsconfig/svelte": "^1.0.10",
     "@types/chrome": "^0.0.126",
     "@types/compression": "^1.7.0",
-    "@types/node": "^14.11.1",
+    "@types/node": "^14.14.10",
     "@types/polka": "^0.5.1",
     "rollup": "^2.3.4",
     "rollup-plugin-svelte": "^6.0.0",

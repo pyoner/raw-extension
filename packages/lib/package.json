@@ -10,9 +10,11 @@
   "license": "MIT",
   "dependencies": {
     "chrome-promise": "^3.0.5",
+    "rxjs": "^6.6.3",
     "worker-rpc": "^0.2.0"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.126"
+    "@types/chrome": "^0.0.126",
+    "@types/node": "^14.14.10"
   }
 }
