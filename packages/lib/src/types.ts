@@ -11,6 +11,10 @@ export interface BaseEvent {
   id?: number
 }
 
+export interface ErrorEvent extends BaseEvent {
+  namespace: 'error'
+}
+
 export interface ResponseEvent {
   id: number
   payload?: any
