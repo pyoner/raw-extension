@@ -1,15 +1,14 @@
 import { Observable, Observer } from 'rxjs'
-import { AnonymousSubject } from 'rxjs/internal/Subject'
 
-function _connect<T>(
+export function clientConnect<C, S>(
   ...args: Parameters<typeof chrome.runtime.connect>
 ) {
   let port: chrome.runtime.Port | null = null
-  const source = new Observable<T>((subscriber) => {
+  const source = new Observable<S>((subscriber) => {
     port = chrome.runtime.connect(...args)
 
     // message
-    const onMessage = (event: T) => {
+    const onMessage = (event: S) => {
       subscriber.next(event)
     }
     port.onMessage.addListener(onMessage)
@@ -24,7 +23,7 @@ function _connect<T>(
     port.onDisconnect.addListener(onDisconnect)
   })
 
-  const destination: Observer<T> = {
+  const destination: Observer<C> = {
     next(value) {
       port?.postMessage(value)
     },
@@ -45,12 +44,29 @@ function _connect<T>(
   return { source, destination }
 }
 
-export class ChromeRuntimePort<T> extends AnonymousSubject<T> {
-  constructor(
-    ...args: Parameters<typeof chrome.runtime.connect>
-  ) {
-    const { destination, source } = _connect<T>(...args)
+export function serverConnect<T>() {
+  const source = new Observable<chrome.runtime.Port>(
+    (subscriber) => {
+      const onConnectExternal = (port: chrome.runtime.Port) => {
+        subscriber.next(port)
+      }
+      chrome.runtime.onConnectExternal.addListener(
+        onConnectExternal,
+      )
 
-    super(destination, source)
+      return function unsubscribe() {
+        chrome.runtime.onConnectExternal.removeListener(
+          onConnectExternal,
+        )
+      }
+    },
+  )
+
+  const destination: Observer<T> = {
+    next(value) {},
+    complete() {},
+    error() {},
   }
+
+  return { source, destination }
 }

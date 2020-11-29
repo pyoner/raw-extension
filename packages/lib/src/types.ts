@@ -11,13 +11,20 @@ export interface BaseEvent {
   id?: number
 }
 
-export interface ErrorEvent extends BaseEvent {
-  namespace: 'error'
+export interface RequestEvent {
+  id: number
+  type: string
+  payload?: any
 }
 
 export interface ResponseEvent {
   id: number
+  type?: string
   payload?: any
+}
+
+export interface ErrorEvent extends ResponseEvent {
+  type: 'error'
 }
 
 export type SendRequest = (message: BaseEvent) => void
