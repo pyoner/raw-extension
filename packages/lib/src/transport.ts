@@ -1,5 +1,5 @@
 import { Observable, Observer } from "rxjs";
-import { Sender, ServerDestinationEvents, ServerSourceEvents } from "./types";
+import { Sender, ServerDestinationEvent, ServerSourceEvents } from "./types";
 
 export function clientConnect<C, S>(
   ...args: Parameters<typeof chrome.runtime.connect>
@@ -90,7 +90,7 @@ export function serverConnect<S, C>() {
     };
   });
 
-  const destination: Observer<ServerDestinationEvents<C>> = {
+  const destination: Observer<ServerDestinationEvent<C>> = {
     next({ to, message }) {
       senders[to]?.postMessage(message);
     },

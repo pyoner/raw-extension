@@ -27,7 +27,7 @@ export type ServerSourceEvents<M> =
   | MessageEvent<M>
   | DisconnectEvent;
 
-export type ServerDestinationEvents<M> = {
+export type ServerDestinationEvent<M> = {
   to: Sender;
   message: M;
 };
