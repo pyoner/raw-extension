@@ -32,17 +32,11 @@ export type ServerOutputEvent<M> = {
   message: M;
 };
 
-export interface BaseEvent {
+export interface ClientOutputEvent<Payload = any> {
   namespace: string;
-  type: string;
-  payload?: any;
-  id?: number;
-}
-
-export interface ClientOutputEvent {
   id: number;
   type: string;
-  payload?: any;
+  payload?: Payload;
 }
 
 export interface ClientInputEvent {
@@ -54,8 +48,6 @@ export interface ClientInputEvent {
 export interface ErrorEvent extends ClientInputEvent {
   type: "error";
 }
-
-export type SendRequest = (message: BaseEvent) => void;
 
 export type OverloadedFunction =
   | {
