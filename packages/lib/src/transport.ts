@@ -34,7 +34,7 @@ export function clientConnect<I, O>(
     },
 
     error(err) {
-      console.error(err);
+      port?.postMessage(err);
     },
 
     get closed() {
