@@ -1,62 +1,53 @@
-import chromep from 'chrome-promise'
-import { chromepApi } from 'chrome-promise/chrome-promise'
-import { API, BaseEvent, UnifyOverloads } from './types'
+import chromep from "chrome-promise";
+import { chromepApi } from "chrome-promise/chrome-promise";
+import { API, BaseEvent, UnifyOverloads } from "./types";
 
 export const api: API = {
-  namespace: 'bookmarks',
+  namespace: "bookmarks",
   endpoint: chromep.bookmarks,
   methods: [
-    'get',
-    'getChildren',
-    'getRecent',
-    'getTree',
-    'getSubTree',
-    'search',
-    'create',
-    'move',
-    'update',
-    'remove',
-    'removeTree',
+    "get",
+    "getChildren",
+    "getRecent",
+    "getTree",
+    "getSubTree",
+    "search",
+    "create",
+    "move",
+    "update",
+    "remove",
+    "removeTree",
   ],
-}
+};
 
-export type Bookmarks = chromepApi.bookmarks.Bookmarks
+export type Bookmarks = chromepApi.bookmarks.Bookmarks;
 export interface Event<
   N extends keyof Bookmarks,
   F extends (...args: any) => any
 > extends BaseEvent {
-  namespace: 'bookmarks'
-  type: N
-  payload: Parameters<UnifyOverloads<F>>
+  namespace: "bookmarks";
+  type: N;
+  payload: Parameters<UnifyOverloads<F>>;
 }
 
-export type EventGet = Event<'get', Bookmarks['get']>
-export type EventGetChildren = Event<
-  'getChildren',
-  Bookmarks['getChildren']
->
+export type EventGet = Event<"get", Bookmarks["get"]>;
+export type EventGetChildren = Event<"getChildren", Bookmarks["getChildren"]>;
 
-export type EventGetRecent = Event<
-  'getRecent',
-  Bookmarks['getRecent']
->
+export type EventGetRecent = Event<"getRecent", Bookmarks["getRecent"]>;
 
-export type EventGetTree = Event<'getTree', Bookmarks['getTree']>
+export type EventGetTree = Event<"getTree", Bookmarks["getTree"]>;
 
-export type EventGetSubTree = Event<
-  'getSubTree',
-  Bookmarks['getSubTree']
->
+export type EventGetSubTree = Event<"getSubTree", Bookmarks["getSubTree"]>;
 
-export type EventSearch = Event<'search', Bookmarks['search']>
+export type EventSearch = Event<"search", Bookmarks["search"]>;
 
-export type EventCreate = Event<'create', Bookmarks['create']>
+export type EventCreate = Event<"create", Bookmarks["create"]>;
 
-export type EventMove = Event<'move', Bookmarks['move']>
+export type EventMove = Event<"move", Bookmarks["move"]>;
 
-export type EventUpdate = Event<'update', Bookmarks['update']>
+export type EventUpdate = Event<"update", Bookmarks["update"]>;
 
-export type EventRemove = Event<'remove', Bookmarks['remove']>
+export type EventRemove = Event<"remove", Bookmarks["remove"]>;
 
 export type Events =
   | EventGet
@@ -67,4 +58,4 @@ export type Events =
   | EventMove
   | EventRemove
   | EventSearch
-  | EventUpdate
+  | EventUpdate;

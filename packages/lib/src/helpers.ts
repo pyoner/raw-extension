@@ -1,43 +1,43 @@
-import { RpcProvider } from 'worker-rpc'
-import { API } from './types'
+import { RpcProvider } from "worker-rpc";
+import { API } from "./types";
 
 export function buildFuncions(api: API) {
-  const funcs: Record<string, Function> = {}
+  const funcs: Record<string, Function> = {};
 
   api.methods.forEach((name) => {
-    funcs[name] = function () {}
-  })
+    funcs[name] = function () {};
+  });
 
-  return funcs
+  return funcs;
 }
 
 const extensionId =
-  process.env.EXTENSION_ID || 'naljgifnpkbcfkeapikhahheciachbcg'
+  process.env.EXTENSION_ID || "naljgifnpkbcfkeapikhahheciachbcg";
 
-let port: chrome.runtime.Port | null = null
+let port: chrome.runtime.Port | null = null;
 export function getPort() {
   if (!port) {
-    port = chrome.runtime.connect(extensionId)
+    port = chrome.runtime.connect(extensionId);
     port.onDisconnect.addListener(() => {
-      port = null
-    })
+      port = null;
+    });
   }
-  return port
+  return port;
 }
 
-let provider: RpcProvider | null = null
+let provider: RpcProvider | null = null;
 export function getProvider() {
-  const p = getPort()
+  const p = getPort();
 
   if (!provider) {
     provider = new RpcProvider((message, transfer) => {
-      p.postMessage(message)
-    })
+      p.postMessage(message);
+    });
 
     p.onMessage.addListener((message) => {
-      provider?.dispatch(message)
-    })
+      provider?.dispatch(message);
+    });
   }
 
-  return provider
+  return provider;
 }
