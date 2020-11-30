@@ -1,5 +1,4 @@
 import { Observable, Observer } from "rxjs";
-import { api } from "./bookmarks";
 import {
   ServerOutputEvent,
   ServerInputEvent,
@@ -57,6 +56,8 @@ export function createServer(
           }
         }
         break;
+      default:
+        console.log("Server input event", event);
     }
   });
 }
