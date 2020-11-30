@@ -1,14 +1,15 @@
 import { clientConnect } from "./transport";
-import { RequestEvent, ResponseEvent } from "./types";
+import { ClientOutputEvent, ClientInputEvent } from "./types";
 
-export function createClient<C extends RequestEvent, S extends ResponseEvent>(
-  ...args: Parameters<typeof chrome.runtime.connect>
-) {
+export function createClient<
+  I extends ClientInputEvent,
+  O extends ClientOutputEvent
+>(...args: Parameters<typeof chrome.runtime.connect>) {
   let transactionId = 0;
   const promises: Map<number, [Function, Function]> = new Map();
 
-  const { destination, source } = clientConnect<C, S>(...args);
-  source.subscribe((event) => {
+  const { input, output } = clientConnect<I, O>(...args);
+  input.subscribe((event) => {
     const { id, payload } = event;
     if (id === undefined) {
       return;
@@ -27,11 +28,11 @@ export function createClient<C extends RequestEvent, S extends ResponseEvent>(
     func(payload);
   });
 
-  const send = (event: C) => {
+  const send = (event: O) => {
     const id = transactionId++;
-    destination.next({ ...event, id });
+    output.next({ ...event, id });
 
-    return new Promise<S>((resolve, reject) => {
+    return new Promise<I>((resolve, reject) => {
       promises.set(id, [resolve, reject]);
     });
   };

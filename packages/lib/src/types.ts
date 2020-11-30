@@ -22,12 +22,12 @@ export interface DisconnectEvent {
   from: Source;
 }
 
-export type ServerSourceEvents<M> =
+export type ServerInputEvent<M> =
   | ConnectEvent
   | MessageEvent<M>
   | DisconnectEvent;
 
-export type ServerDestinationEvent<M> = {
+export type ServerOutputEvent<M> = {
   to: Source;
   message: M;
 };
@@ -39,19 +39,19 @@ export interface BaseEvent {
   id?: number;
 }
 
-export interface RequestEvent {
+export interface ClientOutputEvent {
   id: number;
   type: string;
   payload?: any;
 }
 
-export interface ResponseEvent {
+export interface ClientInputEvent {
   id: number;
   type?: string;
   payload?: any;
 }
 
-export interface ErrorEvent extends ResponseEvent {
+export interface ErrorEvent extends ClientInputEvent {
   type: "error";
 }
 

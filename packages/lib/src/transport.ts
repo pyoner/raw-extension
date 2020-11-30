@@ -1,15 +1,15 @@
 import { Observable, Observer } from "rxjs";
-import { Source, ServerDestinationEvent, ServerSourceEvents } from "./types";
+import { ServerInputEvent, ServerOutputEvent } from "./types";
 
-export function clientConnect<C, S>(
+export function clientConnect<I, O>(
   ...args: Parameters<typeof chrome.runtime.connect>
 ) {
   let port: chrome.runtime.Port | null = null;
-  const source = new Observable<S>((subscriber) => {
+  const input = new Observable<I>((subscriber) => {
     port = chrome.runtime.connect(...args);
 
     // message
-    const onMessage = (event: S) => {
+    const onMessage = (event: I) => {
       subscriber.next(event);
     };
     port.onMessage.addListener(onMessage);
@@ -24,7 +24,7 @@ export function clientConnect<C, S>(
     port.onDisconnect.addListener(onDisconnect);
   });
 
-  const destination: Observer<C> = {
+  const output: Observer<O> = {
     next(value) {
       port?.postMessage(value);
     },
@@ -42,11 +42,11 @@ export function clientConnect<C, S>(
     },
   };
 
-  return { source, destination };
+  return { input, output };
 }
 
-export function serverConnect<S, C>() {
-  const source = new Observable<ServerSourceEvents<S>>((subscriber) => {
+export function serverConnect<I, O>() {
+  const input = new Observable<ServerInputEvent<I>>((subscriber) => {
     const onConnectExternal = (port: chrome.runtime.Port) => {
       // emit ConnectEvent
       subscriber.next({
@@ -82,7 +82,7 @@ export function serverConnect<S, C>() {
     };
   });
 
-  const destination: Observer<ServerDestinationEvent<C>> = {
+  const output: Observer<ServerOutputEvent<O>> = {
     next({ to, message }) {
       to.postMessage(message);
     },
@@ -90,5 +90,5 @@ export function serverConnect<S, C>() {
     error() {},
   };
 
-  return { source, destination };
+  return { input, output };
 }
