@@ -4,22 +4,22 @@ export interface API {
   methods: string[];
 }
 
-export type Sender = string;
+export type Source = any;
 
 export interface ConnectEvent {
   type: "connect";
-  sender: Sender;
+  from: Source;
 }
 
 export interface MessageEvent<M> {
   type: "message";
-  sender: Sender;
+  from: Source;
   message: M;
 }
 
 export interface DisconnectEvent {
   type: "disconnect";
-  sender: Sender;
+  from: Source;
 }
 
 export type ServerSourceEvents<M> =
@@ -28,7 +28,7 @@ export type ServerSourceEvents<M> =
   | DisconnectEvent;
 
 export type ServerDestinationEvent<M> = {
-  to: Sender;
+  to: Source;
   message: M;
 };
 

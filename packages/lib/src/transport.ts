@@ -1,5 +1,5 @@
 import { Observable, Observer } from "rxjs";
-import { Sender, ServerDestinationEvent, ServerSourceEvents } from "./types";
+import { Source, ServerDestinationEvent, ServerSourceEvents } from "./types";
 
 export function clientConnect<C, S>(
   ...args: Parameters<typeof chrome.runtime.connect>
@@ -46,39 +46,31 @@ export function clientConnect<C, S>(
 }
 
 export function serverConnect<S, C>() {
-  const senders: Record<Sender, chrome.runtime.Port> = {};
   const source = new Observable<ServerSourceEvents<S>>((subscriber) => {
     const onConnectExternal = (port: chrome.runtime.Port) => {
-      const sender = port.sender?.origin;
-      if (sender === undefined) {
-        return;
-      }
-
-      senders[sender] = port;
       // emit ConnectEvent
       subscriber.next({
         type: "connect",
-        sender,
+        from: port,
       });
       const onMessage = (message: any) => {
         // emit MessageEvent
         subscriber.next({
           type: "message",
-          sender,
+          from: port,
           message,
         });
       };
       port.onMessage.addListener(onMessage);
 
       const onDisconnect = () => {
-        delete senders[sender];
         port.onDisconnect.removeListener(onDisconnect);
         port.onMessage.removeListener(onMessage);
 
         // emit DisconnectEvent
         subscriber.next({
           type: "disconnect",
-          sender,
+          from: port,
         });
       };
       port.onDisconnect.addListener(onDisconnect);
@@ -92,7 +84,7 @@ export function serverConnect<S, C>() {
 
   const destination: Observer<ServerDestinationEvent<C>> = {
     next({ to, message }) {
-      senders[to]?.postMessage(message);
+      to.postMessage(message);
     },
     complete() {},
     error() {},
