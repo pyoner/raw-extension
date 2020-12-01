@@ -4,6 +4,28 @@ export interface API {
   methods: string[];
 }
 
+export interface BuildEvent<
+  Namespace extends string,
+  Endpoint extends { [K in Methods]: (...args: any) => any },
+  Methods extends string,
+  Method extends Methods
+> {
+  namespace: Namespace;
+  type: Methods;
+  payload: Parameters<UnifyOverloads<Endpoint[Method]>>;
+}
+
+export type InferReturnType<E> = E extends BuildEvent<
+  infer _,
+  infer Endpoint,
+  infer _,
+  infer Method
+>
+  ? ReturnType<Endpoint[Method]> extends Promise<infer P>
+    ? P
+    : never
+  : never;
+
 export type Source = any;
 
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;

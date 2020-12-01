@@ -1,6 +1,10 @@
-import { Observable, Observer } from "rxjs";
-import { InferReturnType } from "./bookmarks";
-import { ClientOutputEvent, ClientInputEvent, Optional } from "./types";
+import type { Observable, Observer } from "rxjs";
+import type {
+  InferReturnType,
+  ClientOutputEvent,
+  ClientInputEvent,
+  Optional,
+} from "./types";
 
 export function createClient<S extends Optional<ClientOutputEvent, "id">>(
   input: Observable<ClientInputEvent>,

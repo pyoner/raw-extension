@@ -20,18 +20,18 @@
     output.complete();
   });
 
-  let bookmarksTree: chrome.bookmarks.BookmarkTreeNode[];
+  let tree: chrome.bookmarks.BookmarkTreeNode[];
   const getTree = async () => {
-    bookmarksTree = await send({
+    tree = await send({
       namespace: "bookmarks",
       type: "getTree",
     });
-    console.log("bookmarks.getTree", bookmarksTree);
+    console.log("bookmarks.getTree", tree);
   };
 
   let query: string = "";
   const search = async () => {
-    bookmarksTree = await send({
+    tree = await send({
       namespace: "bookmarks",
       type: "search",
     });
@@ -42,4 +42,4 @@
 <button on:click={() => search()}>search</button>
 <button on:click={() => getTree()}>bookmarks.getTree</button>
 
-<Bookmarks tree={bookmarksTree} />
+<Bookmarks {tree} />

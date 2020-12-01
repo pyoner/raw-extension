@@ -1,52 +1,64 @@
 import chromep from "chrome-promise";
-import { chromepApi } from "chrome-promise/chrome-promise";
-import { API, ClientOutputEvent, Optional, UnifyOverloads } from "./types";
+import type { chromepApi } from "chrome-promise/chrome-promise";
+import type {
+  API,
+  BuildEvent,
+  ClientOutputEvent,
+  Optional,
+  UnifyOverloads,
+} from "./types";
+
+export const NAMESPACE = "bookmarks" as const;
+export const ENDPOINT = chromep.bookmarks;
+export const METHODS = [
+  "get",
+  "getChildren",
+  "getRecent",
+  "getTree",
+  "getSubTree",
+  "search",
+  "create",
+  "move",
+  "update",
+  "remove",
+  "removeTree",
+] as const;
 
 export const api: API = {
-  namespace: "bookmarks",
-  endpoint: chromep.bookmarks,
-  methods: [
-    "get",
-    "getChildren",
-    "getRecent",
-    "getTree",
-    "getSubTree",
-    "search",
-    "create",
-    "move",
-    "update",
-    "remove",
-    "removeTree",
-  ],
+  namespace: NAMESPACE,
+  endpoint: ENDPOINT,
+  methods: [...METHODS],
 };
 
-export type Bookmarks = chromepApi.bookmarks.Bookmarks;
-export interface Event<
-  N extends keyof Bookmarks,
-  F extends (...args: any) => any
-> extends Optional<ClientOutputEvent<Parameters<UnifyOverloads<F>>>, "id"> {
-  namespace: "bookmarks";
-  type: N;
-}
+export type Namespace = typeof NAMESPACE;
+export type Endpoint = chromepApi.bookmarks.Bookmarks;
+export type Methods = typeof METHODS[number];
 
-export type EventGet = Event<"get", Bookmarks["get"]>;
-export type EventGetChildren = Event<"getChildren", Bookmarks["getChildren"]>;
-
-export type EventGetRecent = Event<"getRecent", Bookmarks["getRecent"]>;
-
-export type EventGetTree = Event<"getTree", Bookmarks["getTree"]>;
-
-export type EventGetSubTree = Event<"getSubTree", Bookmarks["getSubTree"]>;
-
-export type EventSearch = Event<"search", Bookmarks["search"]>;
-
-export type EventCreate = Event<"create", Bookmarks["create"]>;
-
-export type EventMove = Event<"move", Bookmarks["move"]>;
-
-export type EventUpdate = Event<"update", Bookmarks["update"]>;
-
-export type EventRemove = Event<"remove", Bookmarks["remove"]>;
+export type EventGet = BuildEvent<Namespace, Endpoint, Methods, "get">;
+export type EventGetChildren = BuildEvent<
+  Namespace,
+  Endpoint,
+  Methods,
+  "getChildren"
+>;
+export type EventGetRecent = BuildEvent<
+  Namespace,
+  Endpoint,
+  Methods,
+  "getRecent"
+>;
+export type EventGetTree = BuildEvent<Namespace, Endpoint, Methods, "getTree">;
+export type EventGetSubTree = BuildEvent<
+  Namespace,
+  Endpoint,
+  Methods,
+  "getSubTree"
+>;
+export type EventSearch = BuildEvent<Namespace, Endpoint, Methods, "search">;
+export type EventCreate = BuildEvent<Namespace, Endpoint, Methods, "create">;
+export type EventMove = BuildEvent<Namespace, Endpoint, Methods, "move">;
+export type EventUpdate = BuildEvent<Namespace, Endpoint, Methods, "update">;
+export type EventRemove = BuildEvent<Namespace, Endpoint, Methods, "remove">;
 
 export type Events =
   | EventGet
@@ -58,7 +70,3 @@ export type Events =
   | EventRemove
   | EventSearch
   | EventUpdate;
-
-export type InferReturnType<E> = E extends Event<infer _, infer F>
-  ? ReturnType<F>
-  : never;

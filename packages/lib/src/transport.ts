@@ -1,5 +1,5 @@
 import { Observable, Observer } from "rxjs";
-import { ServerInputEvent, ServerOutputEvent } from "./types";
+import type { ServerInputEvent, ServerOutputEvent } from "./types";
 
 export function clientConnect<I, O>(
   ...args: Parameters<typeof chrome.runtime.connect>
