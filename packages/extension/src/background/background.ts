@@ -1,13 +1,10 @@
-import { RpcProvider } from "worker-rpc";
+import { createServer } from "raw-lib/src/server";
+import { serverConnect } from "raw-lib/src/transport";
+import { api as bookmarks } from "raw-lib/src/bookmarks";
 
-import bookmarks from "./bookmarks";
-import { init } from "./helpers";
-
-chrome.runtime.onConnectExternal.addListener((port) => {
-  console.log("external connection", port);
-  const rpcProvider = new RpcProvider((message, transfer) => {
-    port.postMessage(message);
-  });
-
-  init(rpcProvider, port, bookmarks);
-});
+const apis = {
+  [bookmarks.namespace]: bookmarks,
+};
+const { input, output } = serverConnect();
+const subs = createServer(input, output, apis);
+console.log(subs);

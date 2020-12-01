@@ -6,6 +6,8 @@ export interface API {
 
 export type Source = any;
 
+export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+
 export interface ConnectEvent {
   type: "connect";
   from: Source;

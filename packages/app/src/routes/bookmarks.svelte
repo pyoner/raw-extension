@@ -1,43 +1,44 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte'
-  import { RpcProvider } from 'worker-rpc'
+  import { clientConnect } from "raw-lib/src/transport";
+  import { createClient } from "raw-lib/src/client";
 
-  import Bookmarks from '../components/Bookmarks.svelte'
+  import type { ClientInputEvent, ClientOutputEvent } from "raw-lib/src/types";
+  import type { Events } from "raw-lib/src/bookmarks";
 
-  const extensionId = 'naljgifnpkbcfkeapikhahheciachbcg'
-  const port = chrome.runtime.connect(extensionId)
+  import { onDestroy } from "svelte";
 
-  const rpcProvider = new RpcProvider((message, transfer) => {
-    console.log('transfer', transfer)
-    port.postMessage(message)
-  })
+  import Bookmarks from "../components/Bookmarks.svelte";
 
-  port.onMessage.addListener((message) => {
-    rpcProvider.dispatch(message)
-  })
+  const extensionId = "naljgifnpkbcfkeapikhahheciachbcg";
+  const { input, output } = clientConnect<ClientInputEvent, ClientOutputEvent>(
+    extensionId
+  );
+
+  const { send } = createClient<Events>(input, output);
 
   onDestroy(() => {
-    port.disconnect()
-  })
+    output.complete();
+  });
 
-  let bookmarksTree: chrome.bookmarks.BookmarkTreeNode[]
+  let bookmarksTree: chrome.bookmarks.BookmarkTreeNode[];
   const getTree = async () => {
-    bookmarksTree = await rpcProvider.rpc('bookmarks.getTree')
-    console.log('bookmarks.getTree', bookmarksTree)
-  }
+    bookmarksTree = await send({
+      namespace: "bookmarks",
+      type: "getTree",
+    });
+    console.log("bookmarks.getTree", bookmarksTree);
+  };
 
-  let query: string = ''
+  let query: string = "";
   const search = async () => {
-    bookmarksTree = await rpcProvider.rpc('bookmarks.search', [
-      query,
-    ])
-  }
+    bookmarksTree = await send({
+      namespace: "bookmarks",
+      type: "search",
+    });
+  };
 </script>
 
-<input
-  type="text"
-  placeholder="enter query"
-  bind:value={query} />
+<input type="text" placeholder="enter query" bind:value={query} />
 <button on:click={() => search()}>search</button>
 <button on:click={() => getTree()}>bookmarks.getTree</button>
 

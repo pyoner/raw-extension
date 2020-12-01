@@ -1,6 +1,6 @@
 import chromep from "chrome-promise";
 import { chromepApi } from "chrome-promise/chrome-promise";
-import { API, ClientOutputEvent, UnifyOverloads } from "./types";
+import { API, ClientOutputEvent, Optional, UnifyOverloads } from "./types";
 
 export const api: API = {
   namespace: "bookmarks",
@@ -24,7 +24,7 @@ export type Bookmarks = chromepApi.bookmarks.Bookmarks;
 export interface Event<
   N extends keyof Bookmarks,
   F extends (...args: any) => any
-> extends ClientOutputEvent<Parameters<UnifyOverloads<F>>> {
+> extends Optional<ClientOutputEvent<Parameters<UnifyOverloads<F>>>, "id"> {
   namespace: "bookmarks";
   type: N;
 }
@@ -58,3 +58,7 @@ export type Events =
   | EventRemove
   | EventSearch
   | EventUpdate;
+
+export type InferReturnType<E> = E extends Event<infer _, infer F>
+  ? ReturnType<F>
+  : never;

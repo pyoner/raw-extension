@@ -45,7 +45,7 @@ export function clientConnect<I, O>(
   return { input, output };
 }
 
-export function serverConnect<I, O>() {
+export function serverConnect<I = any, O = any>() {
   const input = new Observable<ServerInputEvent<I>>((subscriber) => {
     const onConnectExternal = (port: chrome.runtime.Port) => {
       // emit ConnectEvent

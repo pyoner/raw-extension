@@ -12,6 +12,7 @@
   "dependencies": {
     "compression": "^1.7.1",
     "polka": "next",
+    "raw-lib": "workspace:^1.0.0",
     "sirv": "^1.0.0",
     "worker-rpc": "^0.2.0"
   },
