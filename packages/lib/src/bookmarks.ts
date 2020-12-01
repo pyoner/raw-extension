@@ -1,12 +1,6 @@
 import chromep from "chrome-promise";
 import type { chromepApi } from "chrome-promise/chrome-promise";
-import type {
-  API,
-  BuildEvent,
-  ClientOutputEvent,
-  Optional,
-  UnifyOverloads,
-} from "./types";
+import type { API, BuildEvent } from "./types";
 
 export const NAMESPACE = "bookmarks" as const;
 export const ENDPOINT = chromep.bookmarks;
